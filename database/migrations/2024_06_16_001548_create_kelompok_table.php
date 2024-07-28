@@ -15,10 +15,8 @@ return new class extends Migration
     {
         Schema::create('kelompok', function (Blueprint $table) {
             $table->id();
-            $table->string('kategori_santri', 45);
-            $table->string('kelas');
+            $table->string('asrama');
             $table->foreignIdFor(Guru::class);
-            $table->foreignIdFor(Kategori::class);
             $table->timestamps();
         });
     }

@@ -2,6 +2,7 @@
 
 use App\Models\FormNilai;
 use App\Models\Hafalan;
+use App\Models\JadwalUjian;
 use App\Models\Santri;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -16,10 +17,18 @@ return new class extends Migration
     {
         Schema::create('nilai', function (Blueprint $table) {
             $table->id();
-            $table->float('score');
+            $table->string('tahun_akademik');
+            $table->string('jumlah_hafalan')->nullable();
+            $table->string('hafalan_dibaca')->nullable();
+            $table->integer('nilai_hafalan')->nullable();
+            $table->integer('adab')->nullable();
+            $table->integer('tajwid')->nullable();
+            $table->integer('kelancaran')->nullable();
+            $table->integer('fashohah')->nullable();
+            $table->integer('jumlah')->nullable();
+            $table->double('rata-rata')->nullable();
             $table->foreignIdFor(Santri::class);
-            $table->foreignIdFor(Hafalan::class);
-            $table->foreignIdFor(FormNilai::class);
+            $table->foreignIdFor(JadwalUjian::class);
             $table->timestamps();
         });
     }

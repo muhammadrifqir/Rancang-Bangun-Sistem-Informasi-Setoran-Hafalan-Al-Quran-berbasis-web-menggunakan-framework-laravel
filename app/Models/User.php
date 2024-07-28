@@ -2,16 +2,18 @@
 
 namespace App\Models;
 
+use Filament\Models\Contracts\FilamentUser;
+use Filament\Panel;
+use Laravel\Jetstream\HasTeams;
+use Laravel\Sanctum\HasApiTokens;
+use Laravel\Jetstream\HasProfilePhoto;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Fortify\TwoFactorAuthenticatable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Laravel\Fortify\TwoFactorAuthenticatable;
-use Laravel\Jetstream\HasProfilePhoto;
-use Laravel\Jetstream\HasTeams;
-use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable
+class User extends Authenticatable implements FilamentUser
 {
     use HasApiTokens;
     use HasFactory;
@@ -19,6 +21,40 @@ class User extends Authenticatable
     use HasTeams;
     use Notifiable;
     use TwoFactorAuthenticatable;
+
+    const ROLE_ADMIN = 'ADMIN';
+    const ROLE_GURU = 'GURU';
+    const ROLE_WALI = 'WALI SANTRI';
+    const ROLE_SANTRI = 'SANTRI';
+    const ROLE_DEFAULT = self::ROLE_WALI;
+
+    const ROLES = [
+        self::ROLE_ADMIN => 'Admin',
+        self::ROLE_GURU => 'Guru',
+        self::ROLE_WALI => 'Wali Santri',
+        self::ROLE_SANTRI => 'Santri',
+    ];
+
+    public function canAccessPanel(Panel $panel): bool
+    {
+        return $this->can('view-admin', User::class);
+    }
+
+    public function isAdmin(){
+        return $this->role === self::ROLE_ADMIN;
+    }
+    
+    public function isGuru(){
+        return $this->role === self::ROLE_GURU;
+    }
+
+    public function isWali(){
+        return $this->role === self::ROLE_WALI;
+    }
+
+    public function isSantri(){
+        return $this->role === self::ROLE_SANTRI;
+    }
 
     /**
      * The attributes that are mass assignable.

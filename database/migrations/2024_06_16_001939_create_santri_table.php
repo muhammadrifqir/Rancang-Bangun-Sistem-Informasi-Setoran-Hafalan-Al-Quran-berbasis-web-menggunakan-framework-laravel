@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Kelas;
 use App\Models\Kelompok;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -23,6 +24,7 @@ return new class extends Migration
             $table->boolean('status_aktif')->default(false);
             $table->string('image')->nullable();
             $table->foreignIdFor(Kelompok::class);
+            $table->foreignIdFor(Kelas::class);
             $table->timestamps();
         });
     }

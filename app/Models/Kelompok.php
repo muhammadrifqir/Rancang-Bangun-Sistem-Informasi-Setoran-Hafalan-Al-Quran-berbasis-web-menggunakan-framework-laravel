@@ -12,7 +12,7 @@ class Kelompok extends Model
     protected $table = 'kelompok';
 
     protected $fillable = [
-        'kategori_santri', 'kelas', 'guru_id', 'kategori_id'
+        'asrama', 'guru_id'
     ];
 
     public function santri()
@@ -23,10 +23,5 @@ class Kelompok extends Model
     public function guru()
     {
         return $this->belongsTo(Guru::class);
-    }
-
-    public function kategori()
-    {
-        return $this->belongsTo(Kategori::class);
     }
 }

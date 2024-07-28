@@ -20,23 +20,35 @@ class NilaiResource extends Resource
 {
     protected static ?string $model = Nilai::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-document-check';
+
+    protected static ?string $navigationGroup = 'Component';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('score')
-                    ->required(),
                 Select::make('santri_id')
                     ->label('Santri')
                     ->relationship('santri', 'nama')
                     ->required(),
-                TextInput::make('hafalan_id')
-                    ->label('Hafalan')
+                TextInput::make('jumlah_hafalan')
                     ->required(),
-                TextInput::make('form_nilai_id')
-                    ->label('Form Nilai')
+                TextInput::make('hafalan_dibaca')
+                    ->required(),
+                TextInput::make('nilai_hafalan')
+                    ->required(),
+                TextInput::make('adab')
+                    ->required(),
+                TextInput::make('tajwid')
+                    ->required(),
+                TextInput::make('kelancaran')
+                    ->required(),
+                TextInput::make('fashohah')
+                    ->required(),
+                TextInput::make('jumlah')
+                    ->required(),
+                TextInput::make('rata-rata')
                     ->required(),
             ]);
     }
@@ -45,20 +57,33 @@ class NilaiResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('score')
-                    ->numeric()
-                    ->sortable(),
                 TextColumn::make('santri.nama')
                     ->label('Santri')
+                    ->searchable()
                     ->sortable(),
-                TextColumn::make('hafalan_id')
-                    ->label('Hafalan')
-                    ->numeric()
-                    ->sortable(),
-                TextColumn::make('form_nilai_id')
-                    ->label('Form Nilai')
-                    ->numeric()
-                    ->sortable(),
+                TextColumn::make('santri.kelas.nama_kelas')
+                    ->label('Kelas'),
+                TextColumn::make('jadwal.kategori.nama_kategori')
+                    ->label('Kategori'),
+                TextColumn::make('jumlah_hafalan')
+                    ->label('Jumlah Hafalan'),
+                TextColumn::make('hafalan_dibaca')
+                    ->label('Hafalan Yang Dibaca'),
+                // TextColumn::make('nilai_hafalan')
+                //     ->label('Nilai Hafalan'),
+                // TextColumn::make('adab')
+                //     ->label('Nilai Adab'),
+                // TextColumn::make('tajwid')
+                //     ->label('Nilai Tajwid'),
+                // TextColumn::make('kelancaran')
+                //     ->label('Nilai Kelancaran'),
+                // TextColumn::make('fashohah')
+                //     ->label('Nilai Fashohah'),
+                TextColumn::make('jumlah')
+                    ->label('Nilai Akhir'),
+                TextColumn::make('rata_rata')
+                    ->label('Rata-rata')
+                    ->searchable(),
             ])
             ->filters([
                 //

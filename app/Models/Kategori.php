@@ -15,18 +15,8 @@ class Kategori extends Model
         'nama_kategori'
     ];
 
-    public function kelompok()
+    public function jadwal()
     {
-        return $this->hasMany(Kelompok::class);
-    }
-
-    public function formNilai()
-    {
-        return $this->hasMany(FormNilai::class);
-    }
-
-    public function hafalan()
-    {
-        return $this->hasMany(Hafalan::class);
+        return $this->hasMany(JadwalUjian::class);
     }
 }

@@ -20,23 +20,19 @@ class KelompokResource extends Resource
 {
     protected static ?string $model = Kelompok::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-group';
+
+    protected static ?string $navigationGroup = 'Main Data';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                TextInput::make('kategori_santri')
-                    ->required()
-                    ->maxLength(45),
-                TextInput::make('kelas')
+                TextInput::make('asrama')
                     ->required()
                     ->maxLength(255),
                 Select::make('guru_id')
                     ->relationship('guru', 'nama')
-                    ->required(),
-                Select::make('kategori_id')
-                    ->relationship('kategori', 'nama_kategori')
                     ->required(),
             ]);
     }
@@ -45,15 +41,10 @@ class KelompokResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('kategori_santri')
-                    ->searchable(),
-                TextColumn::make('kelas')
+                TextColumn::make('asrama')
                     ->searchable(),
                 TextColumn::make('guru.nama')
                     ->label('Guru')
-                    ->sortable(),
-                TextColumn::make('kategori.nama_kategori')
-                    ->label('Kategori')
                     ->sortable(),
             ])
             ->filters([

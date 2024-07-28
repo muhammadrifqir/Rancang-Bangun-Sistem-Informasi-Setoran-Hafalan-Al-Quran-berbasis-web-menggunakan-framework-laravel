@@ -10,24 +10,22 @@ use Filament\Tables\Table;
 use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
-use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\FileUpload;
-use Illuminate\Database\Eloquent\Builder;
-use App\Filament\Resources\SantriResource\Pages;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use App\Filament\Resources\SantriResource\RelationManagers;
 use Filament\Tables\Columns\ToggleColumn;
+use App\Filament\Resources\SantriResource\Pages;
 use Livewire\Features\SupportFileUploads\TemporaryUploadedFile;
 
 class SantriResource extends Resource
 {
     protected static ?string $model = Santri::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
+
+    protected static ?string $navigationGroup = 'Main Data';
 
     public static function form(Form $form): Form
     {
@@ -67,8 +65,12 @@ class SantriResource extends Resource
                             ->prepend($name . '-');
                     })->columnSpanFull(),
                 Select::make('kelompok_id')
-                    ->label('Kelompok')
-                    ->relationship('kelompok', 'kategori_santri')
+                    ->label('Asrama')
+                    ->relationship('kelompok', 'asrama')
+                    ->required(),
+                Select::make('kelas_id')
+                    ->label('Kelas')
+                    ->relationship('kelas', 'nama_kelas')
                     ->required(),
             ]);
     }
@@ -77,9 +79,9 @@ class SantriResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('image')->size(50)
-                    ->disk('public')
-                    ->url(fn ($record) => $record->image),
+                // ImageColumn::make('image')->size(50)
+                //     ->disk('public')
+                //     ->url(fn ($record) => $record->image),
                 TextColumn::make('nis')
                     ->label('Nomor Induk Santri')
                     ->searchable(),
@@ -90,17 +92,19 @@ class SantriResource extends Resource
                     ->searchable(),
                 TextColumn::make('tgl_lahir')
                     ->label('Tanggal Lahir')
-                    ->date()
+                    ->date('d F Y')
                     ->sortable(),
                 TextColumn::make('jk')
                     ->label('Jenis Kelamin')
                     ->searchable(),
                 TextColumn::make('email')
                     ->searchable(),
-                ToggleColumn::make('status_aktif')
-                    ->boolean(),
-                TextColumn::make('kelompok.kategori_santri')
-                    ->label('Kelompok')
+                ToggleColumn::make('status_aktif'),
+                TextColumn::make('kelompok.asrama')
+                    ->label('Asrama')
+                    ->sortable(),
+                TextColumn::make('kelas.nama_kelas')
+                    ->label('Kelas')
                     ->sortable(),
             ])
             ->filters([

@@ -10,10 +10,10 @@ class ListNilais extends ListRecords
 {
     protected static string $resource = NilaiResource::class;
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\CreateAction::make(),
-        ];
-    }
+    // protected function getHeaderActions(): array
+    // {
+    //     return [
+    //         Actions\CreateAction::make(),
+    //     ];
+    // }
 }

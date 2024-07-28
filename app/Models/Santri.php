@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Santri extends Model
 {
@@ -12,7 +12,7 @@ class Santri extends Model
     protected $table = 'santri';
 
     protected $fillable = [
-        'nis', 'nama', 'tmp_lahir', 'tgl_lahir', 'jk', 'email', 'status_aktif', 'image', 'kelompok_id'
+        'nis', 'nama', 'tmp_lahir', 'tgl_lahir', 'jk', 'email', 'status_aktif', 'image', 'kelompok_id', 'kelas_id'
     ];
 
     public function kelompok()
@@ -20,15 +20,15 @@ class Santri extends Model
         return $this->belongsTo(Kelompok::class);
     }
 
-    public function kehadiran()
+    public function kelas()
     {
-        return $this->hasMany(Kehadiran::class);
+        return $this->belongsTo(Kelas::class);
     }
 
-    public function formNilai()
-    {
-        return $this->hasMany(FormNilai::class);
-    }
+    // public function kehadiran()
+    // {
+    //     return $this->hasMany(Kehadiran::class);
+    // }
 
     public function nilai()
     {
@@ -38,5 +38,10 @@ class Santri extends Model
     public function hafalan()
     {
         return $this->hasMany(Hafalan::class);
+    }
+
+    public function jadwal()
+    {
+        return $this->hasMany(JadwalUjian::class);
     }
 }

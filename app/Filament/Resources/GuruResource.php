@@ -25,7 +25,9 @@ class GuruResource extends Resource
 {
     protected static ?string $model = Guru::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-users';
+
+    protected static ?string $navigationGroup = 'Main Data';
 
     public static function form(Form $form): Form
     {
@@ -55,7 +57,6 @@ class GuruResource extends Resource
                     ->required(),
                 TextInput::make('email')
                     ->email()
-                    ->unique()
                     ->required(),
                 Textarea::make('alamat')
                     ->required()
@@ -76,9 +77,9 @@ class GuruResource extends Resource
     {
         return $table
             ->columns([
-                ImageColumn::make('image')->size(50)
-                    ->disk('public')
-                    ->url(fn($record) => $record->image),
+                // ImageColumn::make('image')->size(50)
+                //     ->disk('public')
+                //     ->url(fn($record) => $record->image),
                 TextColumn::make('nip')
                     ->label('Nomer Induk Pegawai')
                     ->sortable(),
@@ -89,9 +90,9 @@ class GuruResource extends Resource
                     ->searchable(),
                 TextColumn::make('tgl_lahir')
                     ->label('Tanggal Lahir')
-                    ->date()
+                    ->date('d F Y')
                     ->sortable(),
-                TextColumn::make('hp')
+                TextColumn::make('no_telp')
                     ->label('No Hp')
                     ->searchable(),
                 TextColumn::make('email')

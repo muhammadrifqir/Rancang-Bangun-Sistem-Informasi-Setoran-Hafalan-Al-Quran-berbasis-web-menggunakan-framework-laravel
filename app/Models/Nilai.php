@@ -12,7 +12,7 @@ class Nilai extends Model
     protected $table = 'nilai';
 
     protected $fillable = [
-        'score', 'santri_id', 'hafalan_id', 'form_nilai_id'
+        'tahun_akademik', 'jumlah_hafalan', 'hafalan_dibaca', 'nilai_hafalan', 'adab', 'tajwid', 'kelancaran', 'fashohah', 'santri_id', 'jadwal_ujian_id'
     ];
 
     public function santri()
@@ -20,13 +20,8 @@ class Nilai extends Model
         return $this->belongsTo(Santri::class);
     }
 
-    public function hafalan()
+    public function jadwal()
     {
-        return $this->belongsTo(Hafalan::class);
-    }
-
-    public function formNilai()
-    {
-        return $this->belongsTo(FormNilai::class);
+        return $this->belongsTo(JadwalUjian::class, 'jadwal_ujian_id');
     }
 }

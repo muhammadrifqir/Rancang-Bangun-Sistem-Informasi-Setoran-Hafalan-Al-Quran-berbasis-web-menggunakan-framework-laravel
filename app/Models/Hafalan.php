@@ -12,26 +12,11 @@ class Hafalan extends Model
     protected $table = 'hafalan';
 
     protected $fillable = [
-        'tgl', 'waktu', 'ayat_dari', 'ayat_ke', 'jml_juz', 'hal_dari', 'hal_ke', 'keterangan', 'kategori_id', 'surat_id', 'santri_id'
+        'tgl', 'waktu', 'surat_dari', 'ayat_dari', 'hal_dari', 'surat_ke', 'ayat_ke', 'hal_ke', 'jumlah', 'akumulasi_keseluruhan', 'keterangan', 'santri_id'
     ];
-
-    public function kategori()
-    {
-        return $this->belongsTo(Kategori::class);
-    }
-
-    public function surat()
-    {
-        return $this->belongsTo(Surat::class);
-    }
 
     public function santri()
     {
         return $this->belongsTo(Santri::class);
-    }
-
-    public function nilai()
-    {
-        return $this->hasMany(Nilai::class);
     }
 }
